@@ -234,6 +234,13 @@ input[type="text"]
     background: white;
 }
 
+.footer_text {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-self: flex-end;
+}
 
 /* 
     Extra small devices (phones, 600px and down) 
