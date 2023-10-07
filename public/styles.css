@@ -1,0 +1,288 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0rem 4rem;
+    background: #fff;
+}
+
+nav ul {
+    display: flex;
+    list-style: none; 
+}
+
+.nav-item {
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.nav-item:hover .nav-link {
+    background-color: rgb(204, 204, 204);
+    color: white;
+}
+
+#home, #work {
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+}
+
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+}
+
+li text {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, rgba(255,204,94,1) 0%, rgba(255,170,107,1) 50%, rgba(255,117,94,1) 100%);
+    border-top: solid 8px black;
+    padding: 5px;
+}
+
+.todo-app {
+    width: 100%;
+    max-width: 540px;
+    background: #fff;
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 30px;
+}
+
+.todo-app h2 {
+    color: #000;
+    display: flex;
+    align-items: center;
+    margin-bottom: 35px;
+    margin-left: 20px;
+    font-size: 1.5rem;
+}
+
+.button-container {
+    position: relative;
+    width: 100%;    
+}
+
+.griditem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.griditem.right {
+    transition: width 0.25s;
+}
+
+.input-field {
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 0px;
+    padding-left: 35px;
+    margin: 0px;
+    width: 100%;
+    outline: none;
+    height: 54px;  
+}
+
+input[type="text"]
+{
+    font-size:20px;
+}
+
+.right {
+    position: absolute;
+    top: 0;
+    border-radius: 100px;
+    right: 2px;
+    z-index: 2;
+    border: none;
+    top: 2px;
+    height: 50px;
+    background-color: #ff5945;
+    color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.left, .right {
+
+    padding: 16px 30px;
+    text-align: center;
+}
+
+#todo {
+    margin-top: 20px;
+}
+
+#todo li {
+    list-style: none;
+    padding: 12px 8px 12px 20px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+
+#todo li input[type="checkbox"] {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-position: center;
+}
+
+.cb {
+    float: left; 
+}
+
+.cb_text {
+    margin-top: 2.5px;
+    margin-left: 35px;
+}
+
+.cb_item {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    padding-left: 35px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/*Hide checkbox*/
+.cb_item input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background: no-repeat center/100%
+    url("images/unchecked.png");
+    border-radius: 50%;
+}
+
+/*Hovering*/
+.cb_item:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.cb_item input :checked ~ .checkmark {
+
+    background-color: #ff5945;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked ~.checkmark::after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background: no-repeat center/100%
+    url("images/checked.png");
+}
+
+.container .checkmark::after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+/* 
+    Extra small devices (phones, 600px and down) 
+    change taskForm
+*/
+
+@media only screen and (max-width: 600px) {
+    h2 {
+        padding-top: 20px;
+    }
+
+    nav {
+    flex-direction: column;
+    }
+
+    nav ul {
+    flex-direction: column;
+    padding-top: 0.5rem;
+    
+    }
+    nav li {
+    text-align: center;
+    padding: 0.5rem 0;
+
+    }
+    .input-field {
+        border: none;
+        outline: none;
+        font-weight: 20px;
+        border: 2px solid #ccc;
+        border-radius: 100px;
+        /**/padding: 0px;
+        padding-left: 35px;
+        margin: 0px;
+        /**/width: 100%;
+        height: 54px;  
+    }
+    .left {
+        margin-right: 5px;
+        border: none;
+        outline: none;
+        background: #ff5945;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 50px;
+    }
+    .left, .right {
+        padding: 16px 30px;
+        width: 60px;
+        text-align: center;
+    }
+} 

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todoer</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="head-itemsL">
+            <%- include("partials/header.ejs") %>
+        </div>
+
+        <div class="todo-app">
+            <div class="head-itemsR">
+                <% const month = ["January","February","March","April","May","June","July","August","September","October","November","December"]; %>
+                <h2><%= new Date().toLocaleString('en-us', {weekday:'long'}) %>, <%= month[new Date().getMonth()] %> <%= new Date().getDate() %></h2>
+            </div>
+
+            <div class="row">
+                <form id="taskForm" method="POST" class="button-container">
+                    <button type="button" class="griditem right" id="addButton"><p class="bold" id="buttonText">+</p></button>
+                    <input type="text" class="griditem input-field" name="new_task" id="newTaskInput" placeholder="New Item" />
+                </form>
+            </div>            
+
+            <!-- Liste der Aufgaben -->
+
+            <ul id="todo">
+                <% if(locals.todos) { %>
+                    <% for( var i = 0; i < todos.length; i++){ %>
+                        <li>
+                            <label class="cb_item"><%= todos[i] %>
+                                <input class="cb" type="checkbox" name="task" id="checkbox<%= i %>" value="<%= todos[i] %>" />
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                    <% } %>
+                <% } %>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleButton() {
+            var selectedTasks = document.querySelectorAll('input[name="task"]:checked');
+            var addButton = document.getElementById('addButton');
+            var inputField = document.getElementById('newTaskInput');
+
+            if (selectedTasks.length > 0) {
+                addButton.style.width = '99.1%';
+                inputField.disabled = true;
+                setTimeout(function() {
+                    addButton.innerHTML = '<p class="bold">Remove Item</p>'; // Änderung des Textes
+                    addButton.onclick = removeSelected;
+                }, 250);
+            } else {
+                addButton.style.width = 'auto'; // Zurücksetzen der Breite
+                inputField.disabled = false; // Zurücksetzen des Textes
+                setTimeout(function() {
+                    addButton.innerHTML = '<p class="bold">+</p>'; // Änderung des Textes
+                    addButton.onclick = addTask;                    
+                }, 250);                
+            }
+        }
+
+        function removeSelected() {
+            var selectedTasks = document.querySelectorAll('input[name="task"]:checked');
+            var taskValues = Array.from(selectedTasks).map(task => task.value);
+
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/removetask';
+
+            // Fügen Sie die taskValues als ein einzelnes Element mit einem Namen 'task' hinzu
+            var taskInput = document.createElement('input');
+            taskInput.type = 'hidden';
+            taskInput.name = 'task';
+            taskInput.value = JSON.stringify(taskValues);
+            form.appendChild(taskInput);
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function addTask() {
+            var newTaskInput = document.getElementById('newTaskInput');
+            var newTaskValue = newTaskInput.value.trim(); // Leerzeichen am Anfang und Ende entfernen
+
+            if (newTaskValue !== "") {
+                document.getElementById('taskForm').action = '/addtask';
+                document.getElementById('taskForm').submit();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var addButton = document.getElementById('addButton');
+            addButton.addEventListener('click', addTask);
+            
+            var checkboxes = document.querySelectorAll('input[name="task"]');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', toggleButton);
+            });
+        });
+
+    </script> 
+</body>
+</html>
+
+
+
+
+
