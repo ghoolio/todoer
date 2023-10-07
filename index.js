@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import * as fs from 'fs';
 
 var app = express();
-const host = 3000;
+const host = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
